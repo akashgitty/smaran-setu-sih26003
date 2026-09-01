@@ -1,33 +1,227 @@
 @import "tailwindcss";
 
 :root {
-  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  color: #25312d;
-  background: #f7f8f5;
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+    "Segoe UI", sans-serif;
+
+  color: #17345f;
+  background: #f7f9f8;
+
+  --primary: #17345f;
+  --primary-dark: #10284a;
+  --teal: #2f8f92;
+  --teal-light: #e8f4f2;
+  --purple: #7656bd;
+  --purple-light: #f0ebfa;
+  --orange: #d28a2d;
+  --orange-light: #fff4df;
+
+  --background: #f7f9f8;
+  --surface: #ffffff;
+  --text: #17345f;
+  --muted: #64748b;
+  --border: #e2e8e5;
+
+  --radius: 22px;
 }
 
-* { box-sizing: border-box; }
-body { margin: 0; min-width: 320px; min-height: 100vh; background: #f7f8f5; }
-button, input, select, textarea { font: inherit; }
-button { cursor: pointer; }
+* {
+  box-sizing: border-box;
+}
 
-:focus-visible { outline: 3px solid #2f8f92; outline-offset: 3px; }
+html {
+  scroll-behavior: smooth;
+}
 
-.page-shell { min-height: 100vh; }
-.card { background: white; border: 1px solid #e5e9e5; border-radius: 22px; box-shadow: 0 8px 30px rgba(23, 52, 95, 0.06); }
-.btn-primary { background: #17345f; color: white; border-radius: 14px; padding: 13px 18px; font-weight: 700; transition: .2s ease; }
-.btn-primary:hover { transform: translateY(-1px); background: #10284a; }
-.btn-secondary { background: #e8f2f0; color: #17345f; border-radius: 14px; padding: 13px 18px; font-weight: 700; }
-.btn-soft { background: #f3f5f1; color: #25312d; border-radius: 14px; padding: 12px 16px; font-weight: 700; }
-.input { width: 100%; border: 1px solid #d9dfdb; border-radius: 14px; padding: 13px 14px; background: white; }
-.input:focus { border-color: #2f8f92; box-shadow: 0 0 0 3px rgba(47,143,146,.12); outline: none; }
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+  background: var(--background);
+  color: var(--text);
+}
 
-.patient-large { font-size: 18px; }
-.patient-large .card { border-radius: 26px; }
-.patient-large .btn-primary, .patient-large .btn-secondary, .patient-large .btn-soft { min-height: 52px; }
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+a {
+  text-decoration: none;
+}
+
+:focus-visible {
+  outline: 4px solid rgba(47, 143, 146, 0.45);
+  outline-offset: 4px;
+}
+
+/* ---------- GLOBAL ---------- */
+
+.page-shell {
+  min-height: 100vh;
+}
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: 0 8px 30px rgba(23, 52, 95, 0.06);
+}
+
+.card-hover {
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.card-hover:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 16px 35px rgba(23, 52, 95, 0.1);
+  border-color: rgba(47, 143, 146, 0.3);
+}
+
+/* ---------- BUTTONS ---------- */
+
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+
+  min-height: 52px;
+  padding: 14px 22px;
+
+  background: var(--primary);
+  color: white;
+
+  border: none;
+  border-radius: 15px;
+
+  font-weight: 800;
+
+  transition:
+    transform 0.2s ease,
+    background 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  background: var(--primary-dark);
+  box-shadow: 0 10px 25px rgba(23, 52, 95, 0.18);
+}
+
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+
+  min-height: 52px;
+  padding: 14px 22px;
+
+  background: var(--teal-light);
+  color: var(--primary);
+
+  border: none;
+  border-radius: 15px;
+
+  font-weight: 800;
+}
+
+.btn-soft {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  min-height: 50px;
+  padding: 12px 18px;
+
+  background: #f1f5f3;
+  color: var(--text);
+
+  border: none;
+  border-radius: 15px;
+
+  font-weight: 700;
+}
+
+/* ---------- INPUTS ---------- */
+
+.input {
+  width: 100%;
+  min-height: 52px;
+
+  border: 1px solid #d5ded9;
+  border-radius: 15px;
+
+  padding: 13px 15px;
+
+  background: white;
+  color: var(--text);
+}
+
+.input:focus {
+  border-color: var(--teal);
+  box-shadow: 0 0 0 4px rgba(47, 143, 146, 0.12);
+  outline: none;
+}
+
+/* ---------- PATIENT UI ---------- */
+
+.patient-large {
+  font-size: 18px;
+}
+
+.patient-large .card {
+  border-radius: 24px;
+}
+
+.patient-large .btn-primary,
+.patient-large .btn-secondary,
+.patient-large .btn-soft {
+  min-height: 54px;
+}
+
+/* ---------- SCROLLBAR ---------- */
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #cbd8d4;
+  border-radius: 20px;
+}
+
+/* ---------- MOBILE ---------- */
+
+@media (max-width: 640px) {
+  .patient-large {
+    font-size: 17px;
+  }
+
+  .card {
+    border-radius: 18px;
+  }
+}
+
+/* ---------- REDUCED MOTION ---------- */
 
 @media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after { scroll-behavior: auto !important; transition: none !important; animation: none !important; }
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }
