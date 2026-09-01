@@ -1,0 +1,3 @@
+import { Volume2 } from 'lucide-react'
+import { useState } from 'react'
+export default function VoiceButton({ text = 'Need help?' }) { const [speaking,setSpeaking]=useState(false); const speak=()=>{ if(!('speechSynthesis' in window)) return; setSpeaking(true); const u=new SpeechSynthesisUtterance(text); u.onend=()=>setSpeaking(false); window.speechSynthesis.cancel(); window.speechSynthesis.speak(u) }; return <button onClick={speak} className="flex items-center gap-3 rounded-full bg-[#17345f] px-5 py-3 font-bold text-white shadow-lg"><Volume2 size={21}/>{speaking ? 'Speaking…' : text}</button> }

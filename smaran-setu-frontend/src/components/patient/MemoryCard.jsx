@@ -1,0 +1,2 @@
+import { Link } from 'react-router-dom'
+export default function MemoryCard({ memory }) { return <Link to={`/user/memories/${memory.id}`} className="card overflow-hidden transition hover:-translate-y-1 hover:shadow-lg"><div className="h-40 bg-gradient-to-br from-[#dfece7] to-[#eee9f8] flex items-center justify-center text-6xl">{memory.emoji}</div><div className="p-4"><h3 className="font-bold text-[#17345f]">{memory.title}</h3><p className="mt-1 text-sm text-slate-500">{memory.subtitle}</p></div></Link> }

@@ -1,0 +1,4 @@
+import { CalendarDays, Gamepad2, Heart, Home, Settings } from 'lucide-react'
+import { NavLink } from 'react-router-dom'
+const items = [['/user/home', Home, 'Home'], ['/user/games', Gamepad2, 'Games'], ['/user/memories', Heart, 'Memories'], ['/user/routine', CalendarDays, 'Routine'], ['/user/settings', Settings, 'Settings']]
+export default function PatientBottomNav() { return <nav className="fixed bottom-0 left-0 right-0 z-30 border-t border-slate-200 bg-white px-2 py-2 md:hidden"><div className="mx-auto flex max-w-xl justify-around">{items.map(([to, Icon, label]) => <NavLink key={to} to={to} className={({isActive}) => `flex min-w-14 flex-col items-center gap-1 rounded-xl px-2 py-2 text-xs font-semibold ${isActive ? 'bg-[#e8f2f0] text-[#17345f]' : 'text-slate-500'}`}><Icon size={20}/>{label}</NavLink>)}</div></nav> }

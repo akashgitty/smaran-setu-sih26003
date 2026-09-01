@@ -1,0 +1,2 @@
+import PageTitle from '../../components/common/PageTitle'
+export default function Profile(){return <><PageTitle title="My Profile" subtitle="Your basic profile information."/><div className="card max-w-2xl p-7"><div className="flex items-center gap-5"><div className="flex h-20 w-20 items-center justify-center rounded-full bg-[#e8f2f0] text-2xl font-black text-[#17345f]">K</div><div><h2 className="text-2xl font-bold text-[#17345f]">Kamla Sharma</h2><p className="text-slate-500">User • Connected caregiver: Rahul</p></div></div></div></>}

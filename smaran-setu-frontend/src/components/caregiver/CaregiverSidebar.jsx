@@ -1,0 +1,6 @@
+import { Activity, Bell, CalendarDays, FileText, Heart, Home, Settings, UserRound } from 'lucide-react'
+import { NavLink, useNavigate } from 'react-router-dom'
+import Logo from '../common/Logo'
+import { useAuth } from '../../context/AuthContext'
+const links = [['/caregiver/dashboard',Home,'Dashboard'],['/caregiver/user',UserRound,'My User'],['/caregiver/memories',Heart,'Memories'],['/caregiver/activities',Activity,'Activities'],['/caregiver/progress',CalendarDays,'Progress'],['/caregiver/alerts',Bell,'Alerts'],['/caregiver/reports',FileText,'Reports'],['/caregiver/settings',Settings,'Settings']]
+export default function CaregiverSidebar(){const {logout}=useAuth(); const navigate=useNavigate(); return <aside className="hidden w-64 shrink-0 border-r border-slate-200 bg-white p-5 lg:block"><Logo/><div className="mt-8 space-y-1">{links.map(([to,Icon,label])=><NavLink key={to} to={to} className={({isActive})=>`flex items-center gap-3 rounded-xl px-3 py-3 text-sm font-bold ${isActive?'bg-[#e8f2f0] text-[#17345f]':'text-slate-600 hover:bg-slate-50'}`}><Icon size={19}/>{label}</NavLink>)}</div><button onClick={()=>{logout();navigate('/login')}} className="mt-8 w-full rounded-xl bg-slate-100 px-3 py-3 text-sm font-bold text-slate-700">Log out</button></aside>}

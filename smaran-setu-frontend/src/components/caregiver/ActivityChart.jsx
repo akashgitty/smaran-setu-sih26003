@@ -1,0 +1,2 @@
+import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid } from 'recharts'
+export default function ActivityChart({ data }) { return <div className="h-72 w-full"><ResponsiveContainer><LineChart data={data} margin={{top:10,right:10,left:-20,bottom:0}}><CartesianGrid strokeDasharray="3 3"/><XAxis dataKey="day"/><YAxis domain={[0,100]}/><Tooltip/><Line type="monotone" dataKey="score" stroke="#17345f" strokeWidth={3} dot={{r:4}}/></LineChart></ResponsiveContainer></div> }

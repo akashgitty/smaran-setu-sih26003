@@ -1,0 +1,1 @@
+export default function AlertCard({ type, title, text }) { const styles={warning:'bg-amber-50 text-amber-800',info:'bg-blue-50 text-blue-800',success:'bg-emerald-50 text-emerald-800'}; return <div className={`rounded-2xl p-4 ${styles[type]||styles.info}`}><p className="font-bold">{title}</p><p className="mt-1 text-sm opacity-80">{text}</p></div> }
