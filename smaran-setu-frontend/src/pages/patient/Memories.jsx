@@ -48,7 +48,7 @@ export default function Memories() {
             className="card overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
           >
             {/* Image / Emoji */}
-            <div className="flex h-36 items-center justify-center bg-gradient-to-br from-[#dfece7] to-[#eee9f8]">
+            <div className="flex h-36 items-center justify-center bg-linear-to- from-[#dfece7] to-[#eee9f8]">
               {memory.photo ? (
                 <img
                   src={memory.photo}

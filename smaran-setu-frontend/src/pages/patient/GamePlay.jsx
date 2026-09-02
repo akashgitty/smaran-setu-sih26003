@@ -325,7 +325,7 @@ navigate('/user/result', {
           </div>
 
           {/* Question */}
-          <div className="rounded-[28px] bg-gradient-to-br from-[#e8f4f2] via-[#f3f8f7] to-[#f0ebfa] p-7 text-center sm:p-10">
+          <div className="rounded-[28px] bg-linear-to- from-[#e8f4f2] via-[#f3f8f7] to-[#f0ebfa] p-7 text-center sm:p-10">
             <div className="flex justify-center">
               <div className="flex min-h-28 min-w-28 items-center justify-center rounded-full bg-white px-5 text-4xl shadow-sm sm:min-h-32 sm:min-w-32 sm:text-5xl">
                 {question.emoji}
@@ -369,7 +369,7 @@ navigate('/user/result', {
                     disabled={showFeedback}
                     className={`
                       flex
-                      min-h-[74px]
+                      min-h-18.5
                       items-center
                       gap-4
                       rounded-2xl
@@ -448,7 +448,7 @@ navigate('/user/result', {
           </div>
 
           {/* Feedback */}
-          <div className="mt-5 min-h-[52px]">
+          <div className="mt-5 min-h-13">
             {showFeedback && selectedAnswer === question.answer && (
               <div className="rounded-2xl bg-[#e8f4f2] p-4 text-center">
                 <p className="font-black text-[#2f8f92]">

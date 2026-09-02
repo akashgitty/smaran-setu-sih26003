@@ -62,7 +62,7 @@ useEffect(() => {
       />
 
       {/* Progress card */}
-      <section className="relative overflow-hidden rounded-[30px] bg-gradient-to-br from-[#2f8f92] to-[#7656bd] p-7 text-white shadow-lg sm:p-8">
+      <section className="relative overflow-hidden rounded-[30px] bg-linear-to- from-[#2f8f92] to-[#7656bd] p-7 text-white shadow-lg sm:p-8">
 
         <div className="absolute -right-12 -top-12 h-40 w-40 rounded-full bg-white/10" />
 

@@ -98,7 +98,7 @@ export default function RoutineCard({
 
         {/* Line */}
         <div
-          className={`absolute top-4 h-full min-h-[95px] w-0.5 ${selectedColor.line}`}
+          className={`absolute top-4 h-full min-h-23.75 w-0.5 ${selectedColor.line}`}
         />
 
       </div>
