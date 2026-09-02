@@ -1,6 +1,3 @@
-```jsx
-import { useEffect, useState } from 'react'
-
 import {
   CalendarDays,
   Gamepad2,
@@ -11,16 +8,10 @@ import {
   CheckCircle2,
   Volume2,
   Smile,
-  Clock3,
 } from 'lucide-react'
 
 import { Link } from 'react-router-dom'
-
 import VoiceButton from '../../components/patient/VoiceButton'
-
-import { games } from '../../data/games'
-import { memories } from '../../data/memories'
-import { routines } from '../../data/routine'
 
 const actions = [
   {
@@ -58,128 +49,17 @@ const actions = [
 ]
 
 export default function Home() {
-  const [gameResults, setGameResults] = useState([])
-
-  useEffect(() => {
-    const loadResults = () => {
-      try {
-        const savedResults = JSON.parse(
-          localStorage.getItem('gameResults') || '[]'
-        )
-
-        setGameResults(savedResults)
-      } catch {
-        setGameResults([])
-      }
-    }
-
-    loadResults()
-
-    window.addEventListener('storage', loadResults)
-
-    return () => {
-      window.removeEventListener('storage', loadResults)
-    }
-  }, [])
-
-  // --------------------------------------------------
-  // GAME PROGRESS
-  // --------------------------------------------------
-
-  const today = new Date().toLocaleDateString()
-
-  const todayGameResults = gameResults.filter(
-    (result) => result.date === today
-  )
-
-  const completedGames = todayGameResults.length
-
-  const totalGamesGoal = 3
-
-  const gamePercentage = Math.min(
-    Math.round((completedGames / totalGamesGoal) * 100),
-    100
-  )
-
-  // --------------------------------------------------
-  // ROUTINE PROGRESS
-  // --------------------------------------------------
-
-  const completedRoutines = routines.filter(
-    (routine) => routine.done
-  ).length
-
-  const totalRoutines = routines.length
-
-  const routinePercentage =
-    totalRoutines > 0
-      ? Math.round((completedRoutines / totalRoutines) * 100)
-      : 0
-
-  // --------------------------------------------------
-  // COMBINED DAILY PROGRESS
-  // --------------------------------------------------
-
-  const combinedCompleted =
-    completedGames + completedRoutines
-
-  const combinedTotal =
-    totalGamesGoal + totalRoutines
-
-  const dailyPercentage =
-    combinedTotal > 0
-      ? Math.min(
-          Math.round(
-            (combinedCompleted / combinedTotal) * 100
-          ),
-          100
-        )
-      : 0
-
-  // --------------------------------------------------
-  // NEXT ROUTINE
-  // --------------------------------------------------
-
-  const nextRoutine =
-    routines.find((routine) => !routine.done) || null
-
-  // --------------------------------------------------
-  // NEXT GAME
-  // --------------------------------------------------
-
-  const completedGameIds = todayGameResults
-    .map((result) => result.gameId)
-    .filter(Boolean)
-
-  const nextGame =
-    games.find(
-      (game) => !completedGameIds.includes(game.id)
-    ) || games[0]
-
-  // --------------------------------------------------
-  // WELLNESS MESSAGE
-  // --------------------------------------------------
-
-  const wellnessMessage =
-    dailyPercentage >= 100
-      ? 'Wonderful! You completed today’s goal! 🌟'
-      : dailyPercentage >= 66
-        ? 'Almost there! Keep going! 💚'
-        : dailyPercentage > 0
-          ? 'Great start! Keep going at your own pace.'
-          : 'Let’s get started gently today. 💚'
-
   return (
     <div className="space-y-7">
 
       {/* =====================================================
-          WELCOME
+          WELCOME SECTION
       ===================================================== */}
 
-      <section className="relative overflow-hidden rounded-[30px] bg-gradient-to-br from-[#17345f] via-[#1d5274] to-[#2f8f92] p-7 text-white shadow-lg sm:p-9">
+      <section className="relative overflow-hidden rounded-[30px] bg-linear-to- from-[#17345f] via-[#1d5274] to-[#2f8f92] p-7 text-white shadow-lg sm:p-9">
 
+        {/* Decorative circles */}
         <div className="absolute -right-12 -top-12 h-40 w-40 rounded-full bg-white/5" />
-
         <div className="absolute -bottom-16 right-24 h-44 w-44 rounded-full bg-white/5" />
 
         <div className="relative flex items-start justify-between gap-5">
@@ -187,15 +67,11 @@ export default function Home() {
           <div className="max-w-2xl">
 
             <div className="flex items-center gap-2">
-
               <span className="text-base font-semibold text-white/75">
                 Good morning
               </span>
 
-              <span className="text-xl">
-                ❤️
-              </span>
-
+              <span className="text-xl">❤️</span>
             </div>
 
             <h1 className="mt-2 text-3xl font-black tracking-tight sm:text-4xl">
@@ -207,26 +83,20 @@ export default function Home() {
               Let&apos;s make today a happy and active day.
             </p>
 
+            {/* Small wellness badge */}
             <div className="mt-6 inline-flex items-center gap-2 rounded-full bg-white/10 px-4 py-2 text-sm font-semibold backdrop-blur-sm">
-
               <Sparkles size={17} />
-
-              <span>
-                You&apos;re doing great today!
-              </span>
-
+              <span>You&apos;re doing great today!</span>
             </div>
 
           </div>
 
+          {/* Voice button */}
           <div className="hidden rounded-2xl bg-white/10 p-4 backdrop-blur-sm sm:block">
-
             <Volume2 size={30} />
-
           </div>
 
         </div>
-
       </section>
 
 
@@ -241,7 +111,6 @@ export default function Home() {
           <div>
 
             <div className="flex items-center gap-2">
-
               <Smile
                 size={20}
                 className="text-[#2f8f92]"
@@ -250,7 +119,6 @@ export default function Home() {
               <p className="text-sm font-bold uppercase tracking-wide text-[#2f8f92]">
                 Today&apos;s wellness
               </p>
-
             </div>
 
             <h2 className="mt-2 text-2xl font-black text-[#17345f]">
@@ -263,60 +131,47 @@ export default function Home() {
 
           </div>
 
-
-          {/* Progress */}
-
+          {/* Progress circle */}
           <div className="flex shrink-0 items-center gap-4">
 
             <div className="relative flex h-20 w-20 items-center justify-center rounded-full bg-[#e8f4f2]">
 
               <div className="text-xl font-black text-[#2f8f92]">
-                {dailyPercentage}%
+                66%
               </div>
 
             </div>
 
             <div>
-
               <p className="font-bold text-[#17345f]">
-                {combinedCompleted} of {combinedTotal}
+                2 of 3
               </p>
 
               <p className="text-sm text-slate-500">
                 activities done
               </p>
-
             </div>
 
           </div>
 
         </div>
 
-
         {/* Progress bar */}
-
         <div className="mt-6">
 
           <div className="mb-2 flex justify-between text-xs font-bold">
-
             <span className="text-slate-500">
               Daily goal
             </span>
 
             <span className="text-[#2f8f92]">
-              {wellnessMessage}
+              Almost there!
             </span>
-
           </div>
 
           <div className="h-3 overflow-hidden rounded-full bg-slate-100">
 
-            <div
-              className="h-full rounded-full bg-[#2f8f92] transition-all duration-500"
-              style={{
-                width: `${dailyPercentage}%`,
-              }}
-            />
+            <div className="h-full w-2/3 rounded-full bg-[#2f8f92] transition-all duration-500" />
 
           </div>
 
@@ -351,33 +206,26 @@ export default function Home() {
         <div className="grid gap-4 sm:grid-cols-2">
 
           {actions.map(
-            ({
-              to,
-              Icon,
-              title,
-              note,
-              color,
-              iconColor,
-            }) => (
+            ({ to, Icon, title, note, color, iconColor }) => (
 
               <Link
                 key={to}
                 to={to}
-                className="card card-hover group flex min-h-[155px] items-center gap-5 p-6"
+                className="card card-hover group flex min-h-38.75 items-center gap-5 p-6"
               >
 
+                {/* Icon */}
                 <div
                   className={`flex h-16 w-16 shrink-0 items-center justify-center rounded-2xl ${color} ${iconColor} transition-transform duration-300 group-hover:scale-105`}
                 >
-
                   <Icon
                     size={32}
                     strokeWidth={2.2}
                   />
-
                 </div>
 
 
+                {/* Text */}
                 <div className="min-w-0">
 
                   <h3 className="text-xl font-black text-[#17345f]">
@@ -395,6 +243,7 @@ export default function Home() {
                 </div>
 
 
+                {/* Arrow */}
                 <ArrowRight
                   className="ml-auto shrink-0 text-slate-300 transition-all duration-200 group-hover:translate-x-1 group-hover:text-[#2f8f92]"
                   size={25}
@@ -418,13 +267,13 @@ export default function Home() {
 
         <div className="flex flex-col gap-5 sm:flex-row sm:items-center">
 
+          {/* Icon */}
           <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-[#e8f4f2] text-[#2f8f92]">
-
             <CheckCircle2 size={28} />
-
           </div>
 
 
+          {/* Content */}
           <div className="flex-1">
 
             <p className="text-sm font-bold uppercase tracking-wide text-[#2f8f92]">
@@ -432,113 +281,24 @@ export default function Home() {
             </p>
 
             <h3 className="mt-1 text-xl font-black text-[#17345f]">
-
-              {nextRoutine
-                ? `${nextRoutine.title} ${nextRoutine.icon}`
-                : `${nextGame.title} 🧠`}
-
+              Memory Match 🎮
             </h3>
 
             <p className="mt-1 text-sm leading-6 text-slate-500">
-
-              {nextRoutine
-                ? nextRoutine.note
-                : nextGame.description}
-
+              A short and fun activity to exercise your memory.
             </p>
-
-            {nextRoutine && (
-
-              <div className="mt-2 flex items-center gap-2 text-xs font-bold text-slate-400">
-
-                <Clock3 size={14} />
-
-                {nextRoutine.time}
-
-              </div>
-
-            )}
 
           </div>
 
 
+          {/* Button */}
           <Link
-            to={
-              nextRoutine
-                ? '/user/routine'
-                : `/user/games/${nextGame.id}`
-            }
+            to="/user/games"
             className="btn-secondary shrink-0"
           >
-
-            {nextRoutine
-              ? 'View Routine'
-              : 'Start Activity'}
-
+            Start Activity
             <ArrowRight size={18} />
-
           </Link>
-
-        </div>
-
-      </section>
-
-
-      {/* =====================================================
-          FAVORITE MEMORIES
-      ===================================================== */}
-
-      <section>
-
-        <div className="mb-5 flex items-end justify-between">
-
-          <div>
-
-            <p className="text-sm font-bold uppercase tracking-wide text-[#7656bd]">
-              Your memories
-            </p>
-
-            <h2 className="mt-1 text-2xl font-black text-[#17345f]">
-              Familiar things ❤️
-            </h2>
-
-          </div>
-
-          <Link
-            to="/user/memories"
-            className="text-sm font-bold text-[#2f8f92]"
-          >
-            See all →
-          </Link>
-
-        </div>
-
-
-        <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
-
-          {memories.map((memory) => (
-
-            <Link
-              key={memory.id}
-              to={`/user/memories/${memory.id}`}
-              className="card card-hover p-5 text-center"
-            >
-
-              <div className="text-4xl">
-                {memory.emoji}
-              </div>
-
-              <h3 className="mt-3 font-black text-[#17345f]">
-                {memory.title}
-              </h3>
-
-              <p className="mt-1 text-xs text-slate-500">
-                {memory.subtitle}
-              </p>
-
-            </Link>
-
-          ))}
 
         </div>
 
@@ -549,7 +309,7 @@ export default function Home() {
           ENCOURAGEMENT
       ===================================================== */}
 
-      <section className="rounded-3xl border border-[#e6e0f4] bg-gradient-to-r from-[#f8f5fd] to-[#f8fcfb] p-6 sm:p-7">
+      <section className="rounded-3xl border border-[#e6e0f4] bg-linear-to-r from-[#f8f5fd] to-[#f8fcfb] p-6 sm:p-7">
 
         <div className="flex items-start gap-4">
 
@@ -588,4 +348,3 @@ export default function Home() {
     </div>
   )
 }
-```

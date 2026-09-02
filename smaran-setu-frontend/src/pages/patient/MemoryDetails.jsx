@@ -39,7 +39,7 @@ export default function MemoryDetail() {
             MEMORY HEADER
         ================================================= */}
 
-        <div className="relative flex min-h-[280px] items-center justify-center overflow-hidden bg-gradient-to-br from-[#dfece7] via-[#f3f7f5] to-[#eee9f8]">
+        <div className="relative flex min-h-70 items-center justify-center overflow-hidden bg-linear-to- from-[#dfece7] via-[#f3f7f5] to-[#eee9f8]">
 
           <div className="absolute -right-12 -top-12 h-40 w-40 rounded-full bg-white/40" />
 
