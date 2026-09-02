@@ -1,6 +1,493 @@
 import { useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
-import { ArrowLeft, CheckCircle2 } from 'lucide-react'
+import {
+  ArrowLeft,
+  CheckCircle2,
+  Clock3,
+  Heart,
+  Brain,
+  Image,
+  Hash,
+  Search,
+  Eye,
+} from 'lucide-react'
+
 import { games } from '../../data/games'
 import Button from '../../components/common/Button'
-export default function GamePlay(){const {gameId}=useParams();const game=games.find(g=>g.id===gameId)||games[0];const [answer,setAnswer]=useState('');const [done,setDone]=useState(false);const navigate=useNavigate();const options=game.type==='number'?['7','8','9','10']:game.type==='object'?['Cup','Book','Car','Shoe']:['Apple','House','Dog','Flower']; const submit=()=>{if(!answer)return;setDone(true);setTimeout(()=>navigate('/user/result',{state:{game:game.title,score:80}}),400)};return <div className="mx-auto max-w-2xl"><button onClick={()=>navigate('/user/games')} className="mb-5 flex items-center gap-2 font-bold text-slate-600"><ArrowLeft size={18}/> Back to games</button><div className="card p-7 sm:p-10"><div className="flex items-center justify-between"><div><p className="text-sm font-bold uppercase tracking-wider text-[#2f8f92]">{game.duration}</p><h1 className="mt-2 text-3xl font-black text-[#17345f]">{game.title}</h1></div><div className="rounded-2xl bg-[#e8f2f0] p-4 text-[#2f8f92]"><CheckCircle2 size={28}/></div></div><div className="mt-8 rounded-3xl bg-gradient-to-br from-[#e8f2f0] to-[#eee9f8] p-10 text-center"><div className="text-7xl">{game.type==='number'?'🔢':game.type==='object'?'🔎':'🧠'}</div><h2 className="mt-5 text-2xl font-bold text-[#17345f]">{game.type==='number'?'Which number comes next?':game.type==='object'?'Which object should you find?':'Which item do you remember?'}</h2></div><div className="mt-7 grid grid-cols-2 gap-3">{options.map(option=><button key={option} onClick={()=>setAnswer(option)} className={`rounded-2xl border-2 p-5 text-lg font-bold transition ${answer===option?'border-[#2f8f92] bg-[#e8f2f0] text-[#17345f]':'border-slate-200 hover:border-slate-300'}`}>{option}</button>)}</div><Button disabled={!answer||done} onClick={submit} className="mt-6 w-full disabled:cursor-not-allowed disabled:opacity-50">{done?'Saving…':'Submit Answer'}</Button></div></div>}
+
+const gameQuestions = {
+  memory: [
+    {
+      emoji: '🍎',
+      instruction: 'Remember this item.',
+      question: 'Which item did you see?',
+      options: ['Apple', 'Book', 'Cup', 'Shoe'],
+      answer: 'Apple',
+    },
+    {
+      emoji: '🏠',
+      instruction: 'Remember this item.',
+      question: 'Which item did you see?',
+      options: ['Dog', 'House', 'Car', 'Flower'],
+      answer: 'House',
+    },
+    {
+      emoji: '🌸',
+      instruction: 'Remember this item.',
+      question: 'Which item did you see?',
+      options: ['Tree', 'Flower', 'Ball', 'Book'],
+      answer: 'Flower',
+    },
+    {
+      emoji: '🐶',
+      instruction: 'Remember this item.',
+      question: 'Which item did you see?',
+      options: ['Cat', 'Bird', 'Dog', 'Fish'],
+      answer: 'Dog',
+    },
+    {
+      emoji: '📖',
+      instruction: 'Remember this item.',
+      question: 'Which item did you see?',
+      options: ['Cup', 'Book', 'Shoe', 'Car'],
+      answer: 'Book',
+    },
+  ],
+
+  picture: [
+    {
+      emoji: '🏡🌳☀️',
+      instruction: 'Look carefully at the picture.',
+      question: 'What can you see in the picture?',
+      options: ['A House', 'A Train', 'A Boat', 'A Hospital'],
+      answer: 'A House',
+    },
+    {
+      emoji: '🌳🐦🌸',
+      instruction: 'Look carefully at the picture.',
+      question: 'What animal is in the picture?',
+      options: ['Dog', 'Cat', 'Bird', 'Cow'],
+      answer: 'Bird',
+    },
+    {
+      emoji: '🍎🍌🍊',
+      instruction: 'Look carefully at the picture.',
+      question: 'Which fruit can you see?',
+      options: ['Apple', 'Mango', 'Watermelon', 'Grapes'],
+      answer: 'Apple',
+    },
+    {
+      emoji: '🚗🛣️🌳',
+      instruction: 'Look carefully at the picture.',
+      question: 'What vehicle can you see?',
+      options: ['Bus', 'Car', 'Train', 'Boat'],
+      answer: 'Car',
+    },
+    {
+      emoji: '☕🍪📖',
+      instruction: 'Look carefully at the picture.',
+      question: 'What is beside the book?',
+      options: ['A Cup', 'A Car', 'A Shoe', 'A Ball'],
+      answer: 'A Cup',
+    },
+  ],
+
+  number: [
+    {
+      emoji: '1  →  2  →  3  →  ?',
+      instruction: 'Find the next number.',
+      question: 'Which number comes next?',
+      options: ['4', '5', '6', '7'],
+      answer: '4',
+    },
+    {
+      emoji: '2  →  4  →  6  →  ?',
+      instruction: 'Find the next number.',
+      question: 'Which number comes next?',
+      options: ['7', '8', '9', '10'],
+      answer: '8',
+    },
+    {
+      emoji: '5  →  10  →  15  →  ?',
+      instruction: 'Find the next number.',
+      question: 'Which number comes next?',
+      options: ['18', '20', '22', '25'],
+      answer: '20',
+    },
+    {
+      emoji: '10  →  9  →  8  →  ?',
+      instruction: 'Find the next number.',
+      question: 'Which number comes next?',
+      options: ['5', '6', '7', '8'],
+      answer: '7',
+    },
+    {
+      emoji: '3  →  6  →  9  →  ?',
+      instruction: 'Find the next number.',
+      question: 'Which number comes next?',
+      options: ['10', '11', '12', '13'],
+      answer: '12',
+    },
+  ],
+
+  object: [
+    {
+      emoji: '☕ 📖 🚗 👟',
+      instruction: 'Find the requested object.',
+      question: 'Which object is a cup?',
+      options: ['Cup', 'Book', 'Car', 'Shoe'],
+      answer: 'Cup',
+    },
+    {
+      emoji: '🍎 📖 🏠 🚗',
+      instruction: 'Find the requested object.',
+      question: 'Which object is a book?',
+      options: ['Apple', 'Book', 'House', 'Car'],
+      answer: 'Book',
+    },
+    {
+      emoji: '🚗 🍎 👟 🌸',
+      instruction: 'Find the requested object.',
+      question: 'Which object is a car?',
+      options: ['Flower', 'Apple', 'Car', 'Shoe'],
+      answer: 'Car',
+    },
+    {
+      emoji: '🐶 📖 ☕ 🚲',
+      instruction: 'Find the requested object.',
+      question: 'Which object is a bicycle?',
+      options: ['Dog', 'Book', 'Cup', 'Bicycle'],
+      answer: 'Bicycle',
+    },
+    {
+      emoji: '🌸 👟 🍎 🏠',
+      instruction: 'Find the requested object.',
+      question: 'Which object is a shoe?',
+      options: ['Flower', 'Shoe', 'Apple', 'House'],
+      answer: 'Shoe',
+    },
+  ],
+}
+
+const iconMap = {
+  memory: Brain,
+  picture: Image,
+  number: Hash,
+  object: Search,
+}
+
+export default function GamePlay() {
+  const { gameId } = useParams()
+  const navigate = useNavigate()
+
+  const game = games.find((g) => g.id === gameId) || games[0]
+
+  const questions = gameQuestions[game.type] || gameQuestions.memory
+
+  const [currentQuestion, setCurrentQuestion] = useState(0)
+  const [selectedAnswer, setSelectedAnswer] = useState('')
+  const [score, setScore] = useState(0)
+  const [showFeedback, setShowFeedback] = useState(false)
+
+  const question = questions[currentQuestion]
+  const Icon = iconMap[game.type] || Brain
+
+  const progress = Math.round(
+    ((currentQuestion + 1) / questions.length) * 100,
+  )
+
+  const handleAnswer = (option) => {
+    if (showFeedback) return
+
+    setSelectedAnswer(option)
+    setShowFeedback(true)
+
+    if (option === question.answer) {
+      setScore((previousScore) => previousScore + 1)
+    }
+  }
+
+  const nextQuestion = () => {
+    if (currentQuestion < questions.length - 1) {
+      setCurrentQuestion((previous) => previous + 1)
+      setSelectedAnswer('')
+      setShowFeedback(false)
+      return
+    }
+
+    const finalScore =
+      score + (selectedAnswer === question.answer ? 1 : 0)
+
+    const percentage = Math.round(
+      (finalScore / questions.length) * 100,
+    )
+
+   const result = {
+  gameId: game.id,
+  game: game.title,
+  gameType: game.type,
+  correctAnswers: finalScore,
+  totalQuestions: questions.length,
+  score: percentage,
+  date: new Date().toLocaleDateString(),
+  timestamp: Date.now(),
+}
+
+const previousResults = JSON.parse(
+  localStorage.getItem('gameResults') || '[]'
+)
+
+localStorage.setItem(
+  'gameResults',
+  JSON.stringify([...previousResults, result])
+)
+
+navigate('/user/result', {
+  state: {
+    game: game.title,
+    gameId: game.id,
+    gameType: game.type,
+    score: percentage,
+    correctAnswers: finalScore,
+    totalQuestions: questions.length,
+  },
+})
+  }
+
+  return (
+    <div className="mx-auto max-w-3xl pb-8">
+      {/* Back button */}
+      <button
+        onClick={() => navigate('/user/games')}
+        className="mb-5 flex items-center gap-2 rounded-xl px-2 py-2 font-bold text-slate-600 transition hover:bg-white hover:text-[#2f8f92]"
+      >
+        <ArrowLeft size={19} />
+        Back to games
+      </button>
+
+      <div className="card overflow-hidden">
+        {/* Header */}
+        <div className="border-b border-slate-100 p-6 sm:p-8">
+          <div className="flex items-start justify-between gap-4">
+            <div className="flex items-start gap-4">
+              <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-[#e8f4f2] text-[#2f8f92]">
+                <Icon size={28} />
+              </div>
+
+              <div>
+                <p className="text-sm font-bold uppercase tracking-wide text-[#2f8f92]">
+                  Cognitive Activity
+                </p>
+
+                <h1 className="mt-1 text-2xl font-black text-[#17345f] sm:text-3xl">
+                  {game.title}
+                </h1>
+              </div>
+            </div>
+
+            <div className="hidden items-center gap-2 rounded-full bg-slate-100 px-4 py-2 text-sm font-bold text-slate-600 sm:flex">
+              <Clock3 size={16} />
+              {game.duration}
+            </div>
+          </div>
+
+          <div className="mt-4 flex items-center gap-2 text-sm font-semibold text-slate-500 sm:hidden">
+            <Clock3 size={16} />
+            {game.duration}
+          </div>
+
+          {/* Progress */}
+          <div className="mt-7">
+            <div className="mb-2 flex items-center justify-between">
+              <span className="text-sm font-bold text-slate-500">
+                Question {currentQuestion + 1} of {questions.length}
+              </span>
+
+              <span className="text-sm font-bold text-[#2f8f92]">
+                {progress}%
+              </span>
+            </div>
+
+            <div className="h-3 overflow-hidden rounded-full bg-slate-100">
+              <div
+                className="h-full rounded-full bg-[#2f8f92] transition-all duration-500"
+                style={{ width: `${progress}%` }}
+              />
+            </div>
+          </div>
+        </div>
+
+        {/* Game content */}
+        <div className="p-6 sm:p-8">
+          <div className="mb-5 flex items-center gap-2 text-sm font-semibold text-[#2f8f92]">
+            <Heart size={17} fill="currentColor" />
+            Take your time. There is no rush.
+          </div>
+
+          {/* Question */}
+          <div className="rounded-[28px] bg-gradient-to-br from-[#e8f4f2] via-[#f3f8f7] to-[#f0ebfa] p-7 text-center sm:p-10">
+            <div className="flex justify-center">
+              <div className="flex min-h-28 min-w-28 items-center justify-center rounded-full bg-white px-5 text-4xl shadow-sm sm:min-h-32 sm:min-w-32 sm:text-5xl">
+                {question.emoji}
+              </div>
+            </div>
+
+            <div className="mt-4 flex items-center justify-center gap-2 text-sm font-bold text-[#2f8f92]">
+              <Eye size={17} />
+              {question.instruction}
+            </div>
+
+            <h2 className="mt-4 text-2xl font-black leading-tight text-[#17345f] sm:text-3xl">
+              {question.question}
+            </h2>
+
+            <p className="mx-auto mt-3 max-w-lg text-sm leading-6 text-slate-500 sm:text-base">
+              Choose the answer that feels right to you.
+            </p>
+          </div>
+
+          {/* Options */}
+          <div className="mt-7">
+            <p className="mb-3 text-sm font-bold text-slate-500">
+              Choose an answer
+            </p>
+
+            <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+              {question.options.map((option, index) => {
+                const selected = selectedAnswer === option
+                const correct =
+                  showFeedback && option === question.answer
+                const wrong =
+                  showFeedback &&
+                  selected &&
+                  option !== question.answer
+
+                return (
+                  <button
+                    key={option}
+                    onClick={() => handleAnswer(option)}
+                    disabled={showFeedback}
+                    className={`
+                      flex
+                      min-h-[74px]
+                      items-center
+                      gap-4
+                      rounded-2xl
+                      border-2
+                      px-5
+                      py-4
+                      text-left
+                      transition-all
+                      duration-200
+                      ${
+                        correct
+                          ? 'border-[#2f8f92] bg-[#e8f4f2]'
+                          : wrong
+                            ? 'border-red-300 bg-red-50'
+                            : selected
+                              ? 'border-[#2f8f92] bg-[#e8f4f2] shadow-md'
+                              : 'border-slate-200 bg-white hover:-translate-y-0.5 hover:border-[#9fcfca] hover:bg-[#f8fcfb]'
+                      }
+                    `}
+                  >
+                    <span
+                      className={`
+                        flex
+                        h-10
+                        w-10
+                        shrink-0
+                        items-center
+                        justify-center
+                        rounded-xl
+                        text-sm
+                        font-black
+                        ${
+                          correct
+                            ? 'bg-[#2f8f92] text-white'
+                            : wrong
+                              ? 'bg-red-400 text-white'
+                              : selected
+                                ? 'bg-[#2f8f92] text-white'
+                                : 'bg-slate-100 text-slate-500'
+                        }
+                      `}
+                    >
+                      {index + 1}
+                    </span>
+
+                    <span
+                      className={`
+                        text-lg
+                        font-bold
+                        ${
+                          correct
+                            ? 'text-[#17345f]'
+                            : wrong
+                              ? 'text-red-700'
+                              : 'text-slate-700'
+                        }
+                      `}
+                    >
+                      {option}
+                    </span>
+
+                    {correct && (
+                      <CheckCircle2
+                        className="ml-auto shrink-0 text-[#2f8f92]"
+                        size={24}
+                      />
+                    )}
+
+                    {wrong && (
+                      <span className="ml-auto text-xl">❌</span>
+                    )}
+                  </button>
+                )
+              })}
+            </div>
+          </div>
+
+          {/* Feedback */}
+          <div className="mt-5 min-h-[52px]">
+            {showFeedback && selectedAnswer === question.answer && (
+              <div className="rounded-2xl bg-[#e8f4f2] p-4 text-center">
+                <p className="font-black text-[#2f8f92]">
+                  Wonderful! 🌟 That is correct.
+                </p>
+              </div>
+            )}
+
+            {showFeedback && selectedAnswer !== question.answer && (
+              <div className="rounded-2xl bg-[#fff5f5] p-4 text-center">
+                <p className="font-black text-slate-700">
+                  Good try! 💚 The correct answer is{' '}
+                  <span className="text-[#2f8f92]">
+                    {question.answer}
+                  </span>
+                  .
+                </p>
+              </div>
+            )}
+          </div>
+
+          {/* Next button */}
+          <Button
+            disabled={!showFeedback}
+            onClick={nextQuestion}
+            className="mt-5 w-full disabled:cursor-not-allowed disabled:opacity-50"
+          >
+            {currentQuestion === questions.length - 1
+              ? 'Finish Activity ✓'
+              : 'Next Question →'}
+          </Button>
+
+          {/* Footer */}
+          <div className="mt-6 flex items-center justify-center gap-2 text-center text-xs font-semibold text-slate-400">
+            <span>💚</span>
+            Enjoy the activity at your own pace.
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
