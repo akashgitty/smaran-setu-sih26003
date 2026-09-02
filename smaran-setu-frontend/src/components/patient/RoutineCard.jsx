@@ -1,31 +1,45 @@
 export default function RoutineCard({
   routine,
+  item,
   time,
   title,
   description,
   icon,
   color,
-  completed = false,
+  completed,
+  onComplete,
 }) {
-  // Support both:
-  // <RoutineCard routine={item} />
-  // and individual props.
-  const item = routine || {}
+  // Get the routine data
+  const data = routine || item || {}
 
-  const routineTime = time || item.time || '08:00'
-  const routineTitle = title || item.title || item.name || 'Activity'
+  // Support your current routines.js structure
+  const routineTime =
+    time || data.time || '08:00 AM'
+
+  const routineTitle =
+    title || data.title || 'Activity'
+
   const routineDescription =
     description ||
-    item.description ||
-    item.subtitle ||
+    data.description ||
+    data.note ||
     'Your scheduled activity'
 
-  const routineIcon = icon || item.icon || '🟢'
+  const routineIcon =
+    icon ||
+    data.icon ||
+    '🌿'
 
   const routineColor =
     color ||
-    item.color ||
+    data.color ||
     'green'
+
+  // Your routines.js uses "done"
+  const isCompleted =
+    completed !== undefined
+      ? completed
+      : data.done === true
 
   const colors = {
     green: {
@@ -33,16 +47,19 @@ export default function RoutineCard({
       icon: 'bg-green-50 text-green-600',
       line: 'bg-green-200',
     },
+
     blue: {
       dot: 'bg-blue-500',
       icon: 'bg-blue-50 text-blue-600',
       line: 'bg-blue-200',
     },
+
     orange: {
       dot: 'bg-orange-500',
       icon: 'bg-orange-50 text-orange-600',
       line: 'bg-orange-200',
     },
+
     purple: {
       dot: 'bg-purple-500',
       icon: 'bg-purple-50 text-purple-600',
@@ -50,64 +67,101 @@ export default function RoutineCard({
     },
   }
 
-  const selectedColor = colors[routineColor] || colors.green
+  const selectedColor =
+    colors[routineColor] || colors.green
 
   return (
     <div
-      className={`relative flex gap-5 rounded-2xl p-4 transition-all duration-200 ${
-        completed
-          ? 'bg-slate-50 opacity-70'
-          : 'bg-white hover:bg-slate-50 hover:shadow-sm'
+      className={`relative flex gap-5 rounded-3xl border p-5 transition-all duration-200 sm:p-6 ${
+        isCompleted
+          ? 'border-[#cfe5e1] bg-[#f4faf8]'
+          : 'border-slate-200 bg-white hover:border-[#cfe5e1] hover:shadow-md'
       }`}
     >
+
       {/* Time */}
-      <div className="w-16 flex-shrink-0 pt-1">
-        <p className="text-base font-bold text-[#17345f]">
+      <div className="w-20 shrink-0 pt-1">
+
+        <p className="text-base font-black text-[#17345f] sm:text-lg">
           {routineTime}
         </p>
+
       </div>
 
       {/* Timeline */}
       <div className="relative flex flex-col items-center">
+
         {/* Dot */}
         <div
           className={`relative z-10 h-4 w-4 rounded-full border-4 border-white shadow-sm ${selectedColor.dot}`}
         />
 
-        {/* Vertical line */}
+        {/* Line */}
         <div
-          className={`absolute top-4 h-full min-h-[90px] w-0.5 ${selectedColor.line}`}
+          className={`absolute top-4 h-full min-h-[95px] w-0.5 ${selectedColor.line}`}
         />
+
       </div>
 
       {/* Activity */}
       <div className="flex min-w-0 flex-1 items-start gap-4 pb-5">
+
         {/* Icon */}
         <div
-          className={`flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-xl text-xl ${selectedColor.icon}`}
+          className={`flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl text-2xl ${selectedColor.icon}`}
         >
           {routineIcon}
         </div>
 
         {/* Text */}
         <div className="min-w-0 flex-1">
+
           <div className="flex flex-wrap items-center gap-2">
-            <h3 className="text-lg font-bold text-[#17345f]">
+
+            <h3
+              className={`text-lg font-black sm:text-xl ${
+                isCompleted
+                  ? 'text-[#477d76]'
+                  : 'text-[#17345f]'
+              }`}
+            >
               {routineTitle}
             </h3>
 
-            {completed && (
-              <span className="rounded-full bg-green-100 px-2.5 py-1 text-xs font-bold text-green-700">
-                Completed
+            {isCompleted && (
+              <span className="rounded-full bg-green-100 px-3 py-1 text-xs font-bold text-green-700">
+                ✓ Completed
               </span>
             )}
+
           </div>
 
-          <p className="mt-1 text-sm leading-6 text-slate-600">
+          <p className="mt-1 text-sm leading-6 text-slate-600 sm:text-base">
             {routineDescription}
           </p>
+
         </div>
+
+        {/* Complete button */}
+        <button
+          type="button"
+          onClick={onComplete}
+          aria-label={
+            isCompleted
+              ? `Mark ${routineTitle} as incomplete`
+              : `Mark ${routineTitle} as complete`
+          }
+          className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-full transition-all duration-200 ${
+            isCompleted
+              ? 'bg-[#2f8f92] text-white hover:scale-105'
+              : 'border-2 border-slate-300 text-slate-300 hover:border-[#2f8f92] hover:text-[#2f8f92]'
+          }`}
+        >
+          {isCompleted ? '✓' : '○'}
+        </button>
+
       </div>
+
     </div>
   )
 }
