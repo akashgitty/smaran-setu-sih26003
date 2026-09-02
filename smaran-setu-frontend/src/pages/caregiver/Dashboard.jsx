@@ -142,7 +142,7 @@ export default function Dashboard() {
           GREETING
           ===================================================== */}
 
-      <div className="rounded-3xl bg-gradient-to-r from-[#e8f2f0] to-[#f7faf9] p-6 shadow-sm sm:p-7">
+      <div className="rounded-3xl bg-linear-to-r from-[#e8f2f0] to-[#f7faf9] p-6 shadow-sm sm:p-7">
         <p className="text-sm font-bold uppercase tracking-wide text-[#2f8f92]">
           Caregiver Overview
         </p>
@@ -465,7 +465,7 @@ export default function Dashboard() {
 
         <div className="flex items-start gap-4">
 
-          <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-2xl bg-white text-2xl shadow-sm">
+          <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-white text-2xl shadow-sm">
             💚
           </div>
 
