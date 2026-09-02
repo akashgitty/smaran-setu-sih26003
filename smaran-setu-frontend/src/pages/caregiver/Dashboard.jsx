@@ -142,18 +142,18 @@ export default function Dashboard() {
           GREETING
           ===================================================== */}
 
-      <div className="rounded-3xl bg-gradient-to-r from-[#e8f2f0] to-[#f7faf9] p-6 shadow-sm sm:p-7">
+      <div className="rounded-3xl bg-linear-to-r from-[#e8f2f0] to-[#f7faf9] p-6 shadow-sm sm:p-7">
         <p className="text-sm font-bold uppercase tracking-wide text-[#2f8f92]">
           Caregiver Overview
         </p>
 
-        <h1 className="mt-2 text-3xl font-bold text-[#17345f] sm:text-4xl">
-          Good morning, Anjali 👋
-        </h1>
+        <h1 className="mt-2 text-3xl font-bold text-[#171819] dark:text-white sm:text-4xl">
+  Good morning, Anjali 👋
+</h1>
 
-        <p className="mt-2 text-base text-slate-600">
-          Here's how Kamla is doing today.
-        </p>
+        <p className="mt-2 text-base text-slate-600 dark:text-slate-300">
+  Here's how Kamla is doing today.
+</p>
       </div>
 
       {/* =====================================================
@@ -465,7 +465,7 @@ export default function Dashboard() {
 
         <div className="flex items-start gap-4">
 
-          <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-2xl bg-white text-2xl shadow-sm">
+          <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-white text-2xl shadow-sm">
             💚
           </div>
 
