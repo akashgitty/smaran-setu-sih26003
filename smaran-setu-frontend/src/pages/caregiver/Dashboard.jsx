@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { useAuth } from '../../context/AuthContext'
 import {
   Activity,
   Brain,
@@ -14,6 +15,23 @@ import ActivityChart from '../../components/caregiver/ActivityChart'
 import AlertCard from '../../components/caregiver/AlertCard'
 
 export default function Dashboard() {
+
+    const { profile } = useAuth()
+
+  const caregiverName = profile?.name || 'Caregiver'
+
+  let patientProfile = null
+
+  try {
+    patientProfile = JSON.parse(
+      localStorage.getItem('smaran_profile_user') || 'null'
+    )
+  } catch {
+    patientProfile = null
+  }
+
+  const patientName = patientProfile?.name || 'your user'
+
   const [results, setResults] = useState([])
   const [routines, setRoutines] = useState([])
 
@@ -147,13 +165,13 @@ export default function Dashboard() {
           Caregiver Overview
         </p>
 
-        <h1 className="mt-2 text-3xl font-bold text-[#171819] dark:text-white sm:text-4xl">
-  Good morning, Anjali 👋
-</h1>
+        <h1 className="mt-2 text-3xl font-bold text-[#17345f] sm:text-4xl">
+         Good morning, {caregiverName} 👋
+        </h1>
 
-        <p className="mt-2 text-base text-slate-600 dark:text-slate-300">
-  Here's how Kamla is doing today.
-</p>
+        <p className="mt-2 text-base text-slate-600">
+         Here's how {patientName} is doing today.
+        </p>
       </div>
 
       {/* =====================================================
@@ -271,8 +289,8 @@ export default function Dashboard() {
               title="Games completed"
               text={
                 gamesCompleted === 0
-                  ? 'Kamla has not completed a cognitive game yet.'
-                  : `Kamla has completed ${gamesCompleted} cognitive ${
+                  ? '{patientName} has not completed a cognitive game yet.'
+                  : `{patientName} has completed ${gamesCompleted} cognitive ${
                       gamesCompleted === 1
                         ? 'activity'
                         : 'activities'
