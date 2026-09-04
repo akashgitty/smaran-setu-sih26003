@@ -53,7 +53,7 @@ export default function GameResult() {
             TOP SUCCESS AREA
             =================================================== */}
 
-        <div className="relative overflow-hidden bg-gradient-to-br from-[#17345f] via-[#245c75] to-[#2f8f92] px-6 py-10 text-center text-white sm:px-10 sm:py-12">
+        <div className="relative overflow-hidden bg-linear-to- from-[#17345f] via-[#245c75] to-[#2f8f92] px-6 py-10 text-center text-white sm:px-10 sm:py-12">
 
           {/* Decorative circles */}
 
@@ -117,7 +117,7 @@ export default function GameResult() {
               SCORE
               ================================================= */}
 
-          <div className="my-7 rounded-[28px] bg-gradient-to-br from-[#e8f4f2] to-[#f0ebfa] p-7 text-center sm:p-8">
+          <div className="my-7 rounded-[28px] bg-linear-to- from-[#e8f4f2] to-[#f0ebfa] p-7 text-center sm:p-8">
 
             <div className="flex items-center justify-center gap-2 text-sm font-bold uppercase tracking-wide text-slate-500">
 

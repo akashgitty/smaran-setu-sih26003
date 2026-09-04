@@ -22,7 +22,7 @@ export default function Games() {
           WELCOME BANNER
       ===================================================== */}
 
-      <section className="relative overflow-hidden rounded-[30px] bg-gradient-to-br from-[#17345f] via-[#245c75] to-[#2f8f92] p-7 text-white shadow-lg sm:p-9">
+      <section className="relative overflow-hidden rounded-[30px] bg-linear-to- from-[#17345f] via-[#245c75] to-[#2f8f92] p-7 text-white shadow-lg sm:p-9">
 
         {/* Decorative circles */}
         <div className="absolute -right-10 -top-10 h-36 w-36 rounded-full bg-white/5" />

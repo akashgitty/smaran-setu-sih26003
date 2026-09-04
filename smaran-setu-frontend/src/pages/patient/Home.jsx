@@ -11,6 +11,7 @@ import {
 } from 'lucide-react'
 
 import { Link } from 'react-router-dom'
+import { useAuth } from '../../context/AuthContext'
 import VoiceButton from '../../components/patient/VoiceButton'
 
 const actions = [
@@ -49,6 +50,10 @@ const actions = [
 ]
 
 export default function Home() {
+  const { profile } = useAuth()
+
+  const userName = profile?.name || 'Friend'
+
   return (
     <div className="space-y-7">
 
@@ -56,7 +61,7 @@ export default function Home() {
           WELCOME SECTION
       ===================================================== */}
 
-      <section className="relative overflow-hidden rounded-[30px] bg-linear-to- from-[#17345f] via-[#1d5274] to-[#2f8f92] p-7 text-white shadow-lg sm:p-9">
+      <section className="relative overflow-hidden rounded-[30px] bg-linear-to-r from-[#17345f] via-[#1d5274] to-[#2f8f92] p-7 text-white shadow-lg sm:p-9">
 
         {/* Decorative circles */}
         <div className="absolute -right-12 -top-12 h-40 w-40 rounded-full bg-white/5" />
@@ -67,18 +72,18 @@ export default function Home() {
           <div className="max-w-2xl">
 
             <div className="flex items-center gap-2">
-              <span className="text-base font-semibold text-white/75">
+              <span className="text-base font-semibold text-white/90">
                 Good morning
               </span>
 
               <span className="text-xl">❤️</span>
             </div>
 
-            <h1 className="mt-2 text-3xl font-black tracking-tight sm:text-4xl">
-              Hello, Kamla!
-            </h1>
+           <h1 className="mt-2 text-3xl font-black tracking-tight text-white sm:text-4xl">
+          Hello, {userName}! 👋
+          </h1>
 
-            <p className="mt-3 max-w-xl text-base leading-7 text-white/80 sm:text-lg">
+            <p className="mt-3 max-w-xl text-base leading-7 text-white/90 sm:text-lg">
               Welcome back to your personal space.
               Let&apos;s make today a happy and active day.
             </p>

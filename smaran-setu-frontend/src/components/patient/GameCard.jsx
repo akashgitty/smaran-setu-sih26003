@@ -27,7 +27,7 @@ export default function GameCard({ game }) {
       </h3>
 
       {/* Description */}
-      <p className="mt-2 min-h-[48px] text-sm leading-6 text-slate-600">
+      <p className="mt-2 min-h-12 text-sm leading-6 text-slate-600">
         {game?.description}
       </p>
 

@@ -2,6 +2,7 @@ import { Navigate, Route, Routes } from 'react-router-dom'
 import Welcome from './pages/auth/Welcome'
 import Login from './pages/auth/Login'
 import Register from './pages/auth/Register'
+import BasicDetails from './pages/auth/BasicDetails'
 import RoleSelection from './pages/auth/RoleSelection'
 import PatientLayout from './layouts/PatientLayout'
 import CaregiverLayout from './layouts/CaregiverLayout'
@@ -31,8 +32,11 @@ export default function App() {
     <Routes>
       <Route path="/" element={<Welcome />} />
       <Route path="/login" element={<Login />} />
-      <Route path="/register" element={<Register />} />
-      <Route path="/role-selection" element={<RoleSelection />} />
+     <Route path="/register" element={<Register />} />
+
+<Route path="/setup-profile" element={<BasicDetails />} />
+
+<Route path="/role-selection" element={<RoleSelection />} />
 
       <Route element={<ProtectedRoute role="user" />}>
         <Route path="/user" element={<PatientLayout />}>
