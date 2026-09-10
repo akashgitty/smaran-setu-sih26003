@@ -62,11 +62,21 @@ export function AuthProvider({ children }) {
     }
 
     setRole(selectedRole)
-    setProfile({
-      userId: data.id,
-      email: data.email,
-      profileCompleted: data.profileCompleted,
-    })
+    const existingProfile = readProfile(selectedRole)
+
+const loggedInProfile = {
+  ...(existingProfile || {}),
+  userId: data.id,
+  email: data.email,
+  profileCompleted: data.profileCompleted,
+}
+
+setProfile(loggedInProfile)
+
+localStorage.setItem(
+  `smaran_profile_${selectedRole}`,
+  JSON.stringify(loggedInProfile)
+)
 
     return data
   }
